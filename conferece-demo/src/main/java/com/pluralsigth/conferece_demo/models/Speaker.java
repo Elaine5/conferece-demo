@@ -1,6 +1,9 @@
 package com.pluralsigth.conferece_demo.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.Type;
+import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 
@@ -16,11 +19,23 @@ public class Speaker {
     private String company;
     private String speaker_bio;
 
+    @Lob
+    @JdbcTypeCode(SqlTypes.BINARY)
+    private byte[] speaker_photo;
+
     @ManyToMany(mappedBy = "speakers")
     private List<Session> sessions;
 
     public Speaker(){
 
+    }
+
+    public byte[] getSpeaker_photo() {
+        return speaker_photo;
+    }
+
+    public void setSpeaker_photo(byte[] speaker_photo) {
+        this.speaker_photo = speaker_photo;
     }
 
     public List<Session> getSessions() {
